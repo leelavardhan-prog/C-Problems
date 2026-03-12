@@ -1,0 +1,9 @@
+#include <stdio.h>
+int main() {
+    int time = 1;
+    while(time <= 5) {
+        printf("Studying hour %d\n", time);
+        time++;
+    }
+    return 0;
+}
