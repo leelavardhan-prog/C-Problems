@@ -1,0 +1,10 @@
+#include <stdio.h>
+int main() {
+    int battery = 20;
+    while(battery < 100) {
+        printf("Battery charging: %d%%\n", battery);
+        battery += 10;
+    }
+    printf("Battery Fully Charged");
+    return 0;
+}
