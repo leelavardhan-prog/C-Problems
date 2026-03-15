@@ -1,0 +1,12 @@
+#include <stdio.h>
+int main(){
+    int h, m, s;
+    scanf("%d:%d:%d", &h, &m, &s);
+    if(h < 12){
+        printf("AM");
+        }
+    else{
+        printf("PM");
+        }
+    return 0;
+}
