@@ -1,0 +1,29 @@
+#include <stdio.h>
+int main(){
+    int n = 4;
+    int a[10][10];
+    int top = 0, bottom = n - 1;
+    int left = 0, right = n - 1;
+    int num = 1, i;
+    while(num <= n * n){
+        for(i = left; i <= right; i++)
+            a[top][i] = num++;
+        top++;
+        for(i = top; i <= bottom; i++)
+            a[i][right] = num++;
+        right--;
+        for(i = right; i >= left; i--)
+            a[bottom][i] = num++;
+        bottom--;
+        for(i = bottom; i >= top; i--)
+            a[i][left] = num++;
+        left++;
+    }
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++){
+            printf("%2d ", a[i][j]);
+        }
+        printf("\n");
+    }
+    return 0;
+}
