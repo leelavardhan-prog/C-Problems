@@ -1,26 +1,24 @@
 #include <stdio.h>
-int main()
-{
-    int n, i;
-    int a[100];
-    int largest = -1, second = -1;
-    scanf("%d", &n);
-    for(i = 0; i < n; i++)
-    {
-        scanf("%d", &a[i]);
+#include <limits.h> 
+int main(){
+    int n;
+    scanf("%d",&n);
+    int arr[n];
+    for(int i=0;i<n;i++){
+        scanf("%d",&arr[i]);
     }
-    for(i = 0; i < n; i++)
-    {
-        if(a[i] > largest)
-        {
-            second = largest;
-            largest = a[i];
+    int s_max=INT_MIN;
+    int max=INT_MIN;
+    for(int j=0;j<n;j++){
+        if(arr[j]>max){  // 9000>4000  // 1000>9000
+            s_max=max; // 4000
+            max=arr[j]; // 9000
         }
-        else if(a[i] > second && a[i] != largest)
-        {
-            second = a[i];
+        else if(s_max!=max&&arr[j]>s_max){ // 4000
+            s_max=arr[j];
         }
     }
-    printf("%d", second);
+    printf("%d",s_max);
+
     return 0;
 }
