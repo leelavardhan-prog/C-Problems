@@ -1,0 +1,6 @@
+#include <stdio.h>
+
+int main()
+{
+    printf("Use stack algorithm for full conversion");
+}
