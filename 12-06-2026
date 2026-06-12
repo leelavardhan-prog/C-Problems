@@ -1,0 +1,43 @@
+bool wordPattern(char *pattern, char *s) {
+    char *map[26] = {0};
+    char *used[300];
+    int usedCount = 0;
+
+    char *copy = strdup(s);
+    char *word = strtok(copy, " ");
+
+    int i = 0;
+
+    while (word != NULL && pattern[i] != '\0') {
+        int idx = pattern[i] - 'a';
+
+        if (map[idx] == NULL) {
+            for (int j = 0; j < usedCount; j++) {
+                if (strcmp(used[j], word) == 0) {
+                    free(copy);
+                    return false;
+                }
+            }
+
+            map[idx] = strdup(word);
+            used[usedCount++] = map[idx];
+        } else {
+            if (strcmp(map[idx], word) != 0) {
+                free(copy);
+                return false;
+            }
+        }
+
+        word = strtok(NULL, " ");
+        i++;
+    }
+
+    bool result = (pattern[i] == '\0' && word == NULL);
+
+    for (int j = 0; j < 26; j++) {
+        if (map[j]) free(map[j]);
+    }
+    free(copy);
+
+    return result;
+}
