@@ -1,0 +1,28 @@
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+int countBits(int x) {
+    int cnt = 0;
+    while (x) {
+        cnt += x & 1;
+        x >>= 1;
+    }
+    return cnt;
+}
+
+char **readBinaryWatch(int turnedOn, int *returnSize) {
+    char **result = (char **)malloc(720 * sizeof(char *));
+    *returnSize = 0;
+
+    for (int h = 0; h < 12; h++) {
+        for (int m = 0; m < 60; m++) {
+            if (countBits(h) + countBits(m) == turnedOn) {
+                result[*returnSize] = (char *)malloc(6 * sizeof(char));
+                sprintf(result[*returnSize], "%d:%02d", h, m);
+                (*returnSize)++;
+            }
+        }
+    }
+
+    return result;
+}
