@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+char* addStrings(char* num1, char* num2) {
+    int n1 = strlen(num1);
+    int n2 = strlen(num2);
+
+    int maxLen = (n1 > n2 ? n1 : n2) + 2;
+    char *res = (char *)malloc(maxLen);
+
+    int i = n1 - 1, j = n2 - 1;
+    int k = maxLen - 1;
+    int carry = 0;
+
+    res[k--] = '\0';
+
+    while (i >= 0 || j >= 0 || carry) {
+        int sum = carry;
+
+        if (i >= 0) sum += num1[i--] - '0';
+        if (j >= 0) sum += num2[j--] - '0';
+
+        res[k--] = (sum % 10) + '0';
+        carry = sum / 10;
+    }
+
+    char *answer = strdup(res + k + 1);
+    free(res);
+
+    return answer;
+}
