@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+char* convertToBase7(int num) {
+    if (num == 0) {
+        char *result = (char *)malloc(2);
+        strcpy(result, "0");
+        return result;
+    }
+
+    int negative = num < 0;
+    if (negative)
+        num = -num;
+
+    char temp[50];
+    int i = 0;
+
+    while (num > 0) {
+        temp[i++] = (num % 7) + '0';
+        num /= 7;
+    }
+
+    if (negative)
+        temp[i++] = '-';
+
+    char *result = (char *)malloc(i + 1);
+    int j = 0;
+
+    while (i > 0) {
+        result[j++] = temp[--i];
+    }
+
+    result[j] = '\0';
+    return result;
+}
