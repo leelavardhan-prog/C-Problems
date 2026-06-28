@@ -1,0 +1,29 @@
+#include <stdlib.h>
+
+int compare(const void *a, const void *b) {
+    return (*(int *)a - *(int *)b);
+}
+
+int findLHS(int* nums, int numsSize) {
+    if (numsSize == 0)
+        return 0;
+
+    qsort(nums, numsSize, sizeof(int), compare);
+
+    int i = 0, j = 0;
+    int ans = 0;
+
+    while (j < numsSize) {
+        while (nums[j] - nums[i] > 1)
+            i++;
+
+        if (nums[j] - nums[i] == 1) {
+            int len = j - i + 1;
+            if (len > ans)
+                ans = len;
+        }
+        j++;
+    }
+
+    return ans;
+}
