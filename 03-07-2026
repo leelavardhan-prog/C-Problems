@@ -1,0 +1,29 @@
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ * The number of columns for each row is returned in *returnColumnSizes.
+ */
+int** imageSmoother(int** img, int imgSize, int* imgColSize,int* returnSize, int** returnColumnSizes) {
+    *returnSize = imgSize;
+    *returnColumnSizes = (int*)malloc(sizeof(int) * imgSize);
+    int **result = (int**)malloc(sizeof(int*) * imgSize);
+    int rows = imgSize;
+    int cols = imgColSize[0];
+    for (int i = 0; i < rows; i++) {
+        (*returnColumnSizes)[i] = cols;
+        result[i] = (int*)malloc(sizeof(int) * cols);
+        for (int j = 0; j < cols; j++) {
+            int sum = 0;
+            int count = 0;
+            for (int x = i - 1; x <= i + 1; x++) {
+                for (int y = j - 1; y <= j + 1; y++) {
+                    if (x >= 0 && x < rows && y >= 0 && y < cols) {
+                        sum += img[x][y];
+                        count++;
+                    }
+                }
+            }
+            result[i][j] = sum / count;
+        }
+    }
+    return result;
+}
