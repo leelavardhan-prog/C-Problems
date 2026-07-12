@@ -1,0 +1,90 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define SIZE 1009
+
+typedef struct Node {
+    int key;
+    int value;
+    struct Node *next;
+} Node;
+
+typedef struct {
+    Node *table[SIZE];
+} MyHashMap;
+
+// Create HashMap
+MyHashMap* myHashMapCreate() {
+    MyHashMap *obj = (MyHashMap*)malloc(sizeof(MyHashMap));
+    for (int i = 0; i < SIZE; i++)
+        obj->table[i] = NULL;
+    return obj;
+}
+
+// Put key-value pair
+void myHashMapPut(MyHashMap* obj, int key, int value) {
+    int index = key % SIZE;
+    Node *curr = obj->table[index];
+
+    while (curr) {
+        if (curr->key == key) {
+            curr->value = value;
+            return;
+        }
+        curr = curr->next;
+    }
+
+    Node *newNode = (Node*)malloc(sizeof(Node));
+    newNode->key = key;
+    newNode->value = value;
+    newNode->next = obj->table[index];
+    obj->table[index] = newNode;
+}
+
+// Get value
+int myHashMapGet(MyHashMap* obj, int key) {
+    int index = key % SIZE;
+    Node *curr = obj->table[index];
+
+    while (curr) {
+        if (curr->key == key)
+            return curr->value;
+        curr = curr->next;
+    }
+
+    return -1;
+}
+
+// Remove key
+void myHashMapRemove(MyHashMap* obj, int key) {
+    int index = key % SIZE;
+    Node *curr = obj->table[index];
+    Node *prev = NULL;
+
+    while (curr) {
+        if (curr->key == key) {
+            if (prev)
+                prev->next = curr->next;
+            else
+                obj->table[index] = curr->next;
+
+            free(curr);
+            return;
+        }
+        prev = curr;
+        curr = curr->next;
+    }
+}
+
+// Free memory
+void myHashMapFree(MyHashMap* obj) {
+    for (int i = 0; i < SIZE; i++) {
+        Node *curr = obj->table[i];
+        while (curr) {
+            Node *temp = curr;
+            curr = curr->next;
+            free(temp);
+        }
+    }
+    free(obj);
+}
