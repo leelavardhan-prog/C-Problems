@@ -1,0 +1,27 @@
+package DAY4;
+
+import java.util.Scanner;
+
+public class DemoHourGlass {
+    public static void main(String[] args) {
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("Let us Know Your Name");
+        String name=scanner.nextLine();
+        int limit=name.length();
+        for(int row=limit/2;row>=0;row--){
+            for(int space=limit/2;space>row;space--)
+                System.out.print(" ");
+            for(int coloumn=0;coloumn<=(row*2);coloumn++)
+                System.out.print(name.charAt(coloumn));
+            System.out.println();
+        }
+        for(int row=1;row<=limit/2;row++){
+            for(int space=limit/2;space>row;space--)
+                System.out.print(" ");
+            for(int coloumn=0;coloumn<=(row*2);coloumn++)
+                System.out.print(name.charAt(coloumn));
+            System.out.println();
+        }
+        scanner.close();;
+    }
+}
