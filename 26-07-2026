@@ -1,0 +1,34 @@
+int uniqueMorseRepresentations(char **words, int wordsSize) {
+    const char *morse[] = {
+        ".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....",
+        "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.",
+        "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-",
+        "-.--", "--.."
+    };
+
+    char transforms[100][201];
+    int count = 0;
+
+    for (int i = 0; i < wordsSize; i++) {
+        char temp[201] = "";
+
+        for (int j = 0; words[i][j] != '\0'; j++) {
+            strcat(temp, morse[words[i][j] - 'a']);
+        }
+
+        int found = 0;
+        for (int k = 0; k < count; k++) {
+            if (strcmp(transforms[k], temp) == 0) {
+                found = 1;
+                break;
+            }
+        }
+
+        if (!found) {
+            strcpy(transforms[count], temp);
+            count++;
+        }
+    }
+
+    return count;
+}
